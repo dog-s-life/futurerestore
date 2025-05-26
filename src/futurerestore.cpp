@@ -671,12 +671,10 @@ void futurerestore::enterPwnRecovery(plist_t build_identity, std::string bootarg
             if (board == "n71ap" || board == "n71map" || board == "n69ap" || board == "n69uap" || board == "n66ap" ||
                 board == "n66map") {
                 if (!_noIBSS && !cache1) {
-                    iBSSKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBSS",
-                                                           board);
+                    iBSSKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBSS");
                 }
                 if (!cache2) {
-                    iBECKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBEC",
-                                                           board);
+                    iBECKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBEC");
                 }
             } else {
                 if (!_noIBSS && !cache1) {
