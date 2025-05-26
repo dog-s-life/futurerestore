@@ -671,19 +671,19 @@ void futurerestore::enterPwnRecovery(plist_t build_identity, std::string bootarg
             if (board == "n71ap" || board == "n71map" || board == "n69ap" || board == "n69uap" || board == "n66ap" ||
                 board == "n66map") {
                 if (!_noIBSS && !cache1) {
-                    iBSSKeys = libipatcher::getFirmwareKey(_client->device->product_type, _client->build, "iBSS",
+                    iBSSKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBSS",
                                                            board);
                 }
                 if (!cache2) {
-                    iBECKeys = libipatcher::getFirmwareKey(_client->device->product_type, _client->build, "iBEC",
+                    iBECKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBEC",
                                                            board);
                 }
             } else {
                 if (!_noIBSS && !cache1) {
-                    iBSSKeys = libipatcher::getFirmwareKey(_client->device->product_type, _client->build, "iBSS");
+                    iBSSKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBSS");
                 }
                 if (!cache2) {
-                    iBECKeys = libipatcher::getFirmwareKey(_client->device->product_type, _client->build, "iBEC");
+                    iBECKeys = libipatcher::getFirmwareKeyForComponent(_client->device->product_type, _client->build, "iBEC");
                 }
             }
         } catch (tihmstar::exception &e) {
@@ -953,8 +953,8 @@ void get_custom_component(struct idevicerestore_client_t *client, plist_t build_
 #else
     try {
         auto comp = getIPSWComponent(client, build_identity, component);
-        comp = std::move(libipatcher::decryptFile3((char *) comp.first, comp.second,
-                                              libipatcher::getFirmwareKey(client->device->product_type, client->build,
+        comp = std::move(libipatcher::decryptFile((char *) comp.first, comp.second,
+                                              libipatcher::getFirmwareKeyForComponent(client->device->product_type, client->build,
                                                                           component)));
         *data = (unsigned char *) (char *) comp.first;
         *size = comp.second;
